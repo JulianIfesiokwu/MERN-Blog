@@ -21,7 +21,6 @@ const Dashboard = () => {
       <div className='md:w-56'>
         <DashboardSidebar />
       </div>
-      <DashboardProfile />
       {tab === "profile" && <DashboardProfile />}
     </div>
   );
