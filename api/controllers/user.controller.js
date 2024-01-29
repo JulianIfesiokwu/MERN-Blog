@@ -49,7 +49,6 @@ export const updateUser = async (req, res, next) => {
       { new: true }
     );
     const { password, ...rest } = updatedUser;
-    console.log("Cookies: ", req.cookies);
     res.status(200).send(rest);
   }
   try {
