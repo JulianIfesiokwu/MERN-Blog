@@ -13,4 +13,5 @@ export default {
     // ...
     require("tailwind-scrollbar"),
   ],
+  // darkMode: "class",
 };
