@@ -1,4 +1,4 @@
-import { Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -6,7 +6,25 @@ import { Link } from "react-router-dom";
 const DashboardPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
-  console.log(userPosts);
+  const [showMore, setShowMore] = useState(true);
+
+  const handleShowMore = async () => {
+    const startIndex = userPosts.length;
+    try {
+      const res = await fetch(
+        `/api/posts/getPosts?userId=${currentUser._id}&startIndex=${startIndex}`
+      );
+      const data = res.json();
+      if (res.ok) {
+        setUserPosts((prev) => [...prev, ...data.posts]);
+        if (data.posts.length < 9) {
+          setShowMore(false);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -15,6 +33,9 @@ const DashboardPosts = () => {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
+          if (data.length < 9) {
+            setShowMore(false);
+          }
         }
       } catch (error) {
         console.log(error.message);
@@ -89,6 +110,15 @@ const DashboardPosts = () => {
               );
             })}
           </Table>
+          {showMore && (
+            <Button
+              type='button'
+              onClick={handleShowMore}
+              className='  mx-auto text-sm p-1 my-4 hover:underline cursor-pointer'
+            >
+              show more
+            </Button>
+          )}
         </>
       ) : (
         <div className=''>
