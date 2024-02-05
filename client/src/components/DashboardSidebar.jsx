@@ -1,5 +1,10 @@
 import { Sidebar } from "flowbite-react";
-import { HiUser, HiArrowSmRight, HiDocumentText } from "react-icons/hi";
+import {
+  HiUser,
+  HiArrowSmRight,
+  HiDocumentText,
+  HiOutlineUserGroup,
+} from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -43,7 +48,7 @@ const DashboardSidebar = () => {
           <Link to={"/dashboard?tab=profile"}>
             <Sidebar.Item
               active={tab === "profile"}
-              Icon={HiUser}
+              icon={HiUser}
               label={currentUser.isAdmin ? "Admin" : "User"}
               labelColor='dark'
               as='div'
@@ -55,7 +60,7 @@ const DashboardSidebar = () => {
             <Link to={"/dashboard?tab=posts"}>
               <Sidebar.Item
                 active={tab === "posts"}
-                Icon={HiDocumentText}
+                icon={HiDocumentText}
                 labelColor='dark'
                 as='div'
               >
@@ -63,8 +68,20 @@ const DashboardSidebar = () => {
               </Sidebar.Item>
             </Link>
           )}
+          {currentUser.isAdmin && (
+            <Link to={"/dashboard?tab=users"}>
+              <Sidebar.Item
+                active={tab === "users"}
+                icon={HiOutlineUserGroup}
+                labelColor='dark'
+                as='div'
+              >
+                Users
+              </Sidebar.Item>
+            </Link>
+          )}
           <Sidebar.Item
-            Icon={HiArrowSmRight}
+            icon={HiArrowSmRight}
             className='cursor-pointer'
             onClick={handleSignout}
           >
