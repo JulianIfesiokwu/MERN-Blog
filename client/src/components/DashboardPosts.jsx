@@ -111,7 +111,7 @@ const DashboardPosts = () => {
                     <Table.Cell>
                       <Link
                         className='font-medium text-gray-900 dark:text-white'
-                        to={`/posts/${post.slug}`}
+                        to={`/post/${post.slug}`}
                       >
                         {post.title}
                       </Link>
