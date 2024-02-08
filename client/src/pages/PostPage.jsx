@@ -2,13 +2,13 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Spinner } from "flowbite-react";
 import { Link } from "react-router-dom";
+import CallToAction from "../components/CallToAction";
 
 const PostPage = () => {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
-  console.log(post);
 
   useEffect(() => {
     console.log(postSlug);
@@ -17,7 +17,6 @@ const PostPage = () => {
         setLoading(true);
         const res = await fetch(`/api/post/getPosts?slug=${postSlug}`);
         const data = await res.json();
-        console.log(data);
 
         if (!res.ok) {
           setError(true);
@@ -46,7 +45,7 @@ const PostPage = () => {
   }
   return (
     <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
-      <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl lg:text-4xl'>
+      <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl lg:text-4xl mx-auto'>
         {post && post.title}
       </h1>
       <Link
@@ -76,6 +75,9 @@ const PostPage = () => {
         className='p-3 max-w-2xl mx-auto w-full post-content'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
+      <div className='max-w-4xl mx-auto w-full'>
+        <CallToAction />
+      </div>
     </main>
   );
 };
