@@ -72,6 +72,14 @@ const CommentSection = ({ postId }) => {
     }
   };
 
+  const handleEdit = async (comment, editedContent) => {
+    setComments(
+      comments.map((c) => {
+        c._id === comment._id ? { ...comment, content: editedContent } : c;
+      })
+    );
+  };
+
   useEffect(() => {
     const getComments = async () => {
       try {
@@ -164,9 +172,10 @@ const CommentSection = ({ postId }) => {
           {comments.map((comment) => {
             return (
               <Comment
-                key={comment._id}
                 comment={comment}
-                onLike={() => handleLike(comment._id)}
+                key={comment._id}
+                onLike={handleLike}
+                onEdit={handleEdit}
               />
             );
           })}
