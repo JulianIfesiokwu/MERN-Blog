@@ -5,6 +5,7 @@ import {
   HiDocumentText,
   HiOutlineUserGroup,
   HiAnnotation,
+  HiChartPie,
 } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
@@ -57,6 +58,18 @@ const DashboardSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
+          {currentUser.isAdmin && (
+            <Link to={"/dashboard?tab=dashboard"}>
+              <Sidebar.Item
+                active={tab === "dashboard" || !tab}
+                icon={HiChartPie}
+                labelColor='dark'
+                as='div'
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>
+          )}
           {currentUser.isAdmin && (
             <Link to={"/dashboard?tab=posts"}>
               <Sidebar.Item
